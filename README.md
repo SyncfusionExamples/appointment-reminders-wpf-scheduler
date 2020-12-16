@@ -1,5 +1,4 @@
 # How to add reminder for appointments in wpf scheduler?
-
 ## About the sample
 This examples demonstrates to add reminder for appointments in wpf scheduler. There are two ways to add reminders for appointments,
 
