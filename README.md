@@ -97,9 +97,7 @@ Define a ViewModel class that implements appoinments with reminders and its hand
                     new SchedulerReminder { ReminderTimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
-
         }
-
     }
 
 And set the 'EnableReminder' property of scheduler as true.
@@ -131,8 +129,6 @@ Create ReminderModel and SchedulerModel classes to map business objects for Sche
 
     public class ReminderViewModel : NotificationObject
     {
-        #region Constructor
-
         /// <summary>
         /// Initializes a new instance of the <see cref="ReminderViewModel" /> class.
         /// </summary>
@@ -143,10 +139,6 @@ Create ReminderModel and SchedulerModel classes to map business objects for Sche
             DisplayDate = DateTime.Now.Date.AddHours(9);
         }
 
-        #endregion Constructor
-
-        #region Properties
-
         /// <summary>
         /// Gets or sets event collection.
         /// </summary>
@@ -156,10 +148,6 @@ Create ReminderModel and SchedulerModel classes to map business objects for Sche
         /// Gets or sets display date
         /// </summary>
         public DateTime DisplayDate { get; set; }
-
-        #endregion Properties
-
-        #region CreateSchedulerAppointmentCollection
 
         /// <summary>
         /// Method to create Scheduler appointment collection
@@ -231,8 +219,6 @@ Create ReminderModel and SchedulerModel classes to map business objects for Sche
             });
 
         }
-
-        #endregion CreateSchedulerAppointmentCollection
     }
 
 And set `EnableReminder` property of scheduler as true and  map properties in business object to ScheduleAppointment by configuring the AppointmentMapping property.
