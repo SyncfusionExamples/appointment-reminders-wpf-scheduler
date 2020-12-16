@@ -1,0 +1,40 @@
+﻿<Window x:Class="Scheduler_Reminder.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:system="clr-namespace:System;assembly=mscorlib" 
+        xmlns:local="clr-namespace:Scheduler_Reminder"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="SchedulerReminder" Height="450" Width="800">
+    <Window.Resources>
+            <ObjectDataProvider x:Key="schedulerviewtypes" MethodName="GetValues"
+                            ObjectType="{x:Type system:Enum}">
+                <ObjectDataProvider.MethodParameters>
+                    <x:Type  Type="{x:Type syncfusion:SchedulerViewType}"/>
+                </ObjectDataProvider.MethodParameters>
+            </ObjectDataProvider>
+    </Window.Resources>
+    <Grid>
+        <Grid.DataContext>
+            <local:ReminderViewModel/>
+        </Grid.DataContext>
+        <syncfusion:SfScheduler x:Name="Schedule" 
+                                ItemsSource="{Binding Events}"
+                                EnableReminder="True"
+                ViewType="{Binding ElementName=viewtypecombobox, Path=SelectedValue,Mode=TwoWay}">
+        </syncfusion:SfScheduler>
+
+        <StackPanel
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Margin="5">
+            <ComboBox x:Name="viewtypecombobox" 
+                      ItemsSource="{Binding Source={StaticResource schedulerviewtypes}}"
+                      SelectedIndex="2" 
+                      Width="150" Height="24" 
+                      SelectionChanged="Viewtypecombobox_SelectionChanged"/>
+        </StackPanel>
+    </Grid>
+</Window>
