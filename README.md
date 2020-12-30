@@ -7,7 +7,7 @@ This examples demonstrates to add reminder for appointments in wpf scheduler. Th
 ## SchedulerReminder
 Define a ViewModel class that implements appoinments with reminders and its handled by scheduler reminder.
 
-    public class ReminderViewModel : NotificationObject
+    public class ReminderViewModel 
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ReminderViewModel" /> class.
@@ -125,74 +125,125 @@ And set the 'EnableReminder' property of scheduler as true.
 </Window>
 
 ## ReminderMapping
-Create ReminderModel and SchedulerModel classes to map business objects for ScheduleAppointment and ReminderMapping.Then, Define a ViewModel class that implements appoinments with reminders and its handled by reminder mapping.
+Create Reminder and Event classes to map business objects for AppointmentMapping and ReminderMapping.Then, Define a ViewModel class that implements appoinments with reminders and its handled by reminder mapping.
 
-    public class ReminderViewModel : NotificationObject
+### Appointment model class
+
+  public class Event
     {
+        public Event()
+        {
+        }
+
+        public DateTime From { get; set; }
+        public DateTime To { get; set; }
+        public bool IsAllDay { get; set; }
+        public string EventName { get; set; }
+        public string Notes { get; set; }
+        public string StartTimeZone { get; set; }
+        public string EndTimeZone { get; set; }
+        public Brush Color { get; set; }
+        public object RecurrenceId { get; set; }
+        public object Id { get; set; }
+        public string RecurrenceRule { get; set; }
+        public ObservableCollection<DateTime> RecurrenceExceptions { get; set; }
+        public ObservableCollection<Reminder> Reminders { get; set; }
+    }
+
+### Reminder model class
+
+    public class Reminder
+    {
+        /// <summary>
+        /// Gets or sets the value indicating whether the reminder is dismissed or not. 
+        /// </summary>
+        public bool Dismissed { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value to display reminder alert before appointment start time.
+        /// </summary>
+        public TimeSpan TimeInterval { get; set; }
+
+    }
+
+### ViewModel class 
+
+    public class ReminderViewModel
+    {
+        #region Constructor
+
         /// <summary>
         /// Initializes a new instance of the <see cref="ReminderViewModel" /> class.
         /// </summary>
         public ReminderViewModel()
         {
-            this.Events = new ObservableCollection<SchedulerModel>();
+            this.Events = new ObservableCollection<Event>();
             this.CreateSchedulerAppointments();
             DisplayDate = DateTime.Now.Date.AddHours(9);
         }
 
+        #endregion Constructor
+
+        #region Properties
+
         /// <summary>
         /// Gets or sets event collection.
         /// </summary>
-        public ObservableCollection<SchedulerModel> Events { get; set; }
+        public ObservableCollection<Event> Events { get; set; } = new ObservableCollection<Event>();
 
         /// <summary>
         /// Gets or sets display date
         /// </summary>
         public DateTime DisplayDate { get; set; }
 
+        #endregion Properties
+
+        #region CreateSchedulerAppointmentCollection
+
         /// <summary>
         /// Method to create Scheduler appointment collection
         /// </summary>
         private void CreateSchedulerAppointments()
         {
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now,
                 To = DateTime.Now.AddHours(1),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF339933")),
                 EventName = "Conference",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0)},
+                    new Reminder { TimeInterval = new TimeSpan(0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(-2).AddHours(10),
                 To = DateTime.Now.Date.AddDays(-2).AddHours(11),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFA2C139")),
                 EventName = "Business Meeting",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(2).AddHours(12),
                 To = DateTime.Now.Date.AddDays(2).AddHours(13),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00ABA9")),
                 EventName = "Medical check up",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(1, 0, 0, 0)},
-                    new ReminderModel { TimeInterval = new TimeSpan(2, 0, 0, 0)},
-                    new ReminderModel { TimeInterval = new TimeSpan(3, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(1, 0, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(2, 0, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(3, 0, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(-10).AddHours(15),
                 To = DateTime.Now.Date.AddDays(-10).AddHours(16),
@@ -200,25 +251,27 @@ Create ReminderModel and SchedulerModel classes to map business objects for Sche
                 EventName = "Project Status Discussion",
                 Notes = "provides an opportunity to share information across the whole team.",
                 RecurrenceRule = "FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;COUNT=20",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(3).AddHours(14),
                 To = DateTime.Now.Date.AddDays(3).AddHours(15),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD80073")),
                 EventName = "GoToMeeting",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 
         }
+
+        #endregion CreateSchedulerAppointmentCollection
     }
 
 And set `EnableReminder` property of scheduler as true and  map properties in business object to ScheduleAppointment by configuring the AppointmentMapping property.
@@ -238,15 +291,22 @@ And set `EnableReminder` property of scheduler as true and  map properties in bu
         <local:ReminderViewModel/>
     </Window.DataContext>
     <Grid>
-        <syncfusion:SfScheduler x:Name="Schedule" 
+             <syncfusion:SfScheduler x:Name="Schedule" 
                                 ItemsSource="{Binding Events}"
-                                EnableReminder="True">
+                                EnableReminder="True"
+                ViewType="{Binding ElementName=viewtypecombobox, Path=SelectedValue,Mode=TwoWay}">
             <syncfusion:SfScheduler.AppointmentMapping>
                 <syncfusion:AppointmentMapping
                     Subject="EventName"
                     StartTime="From"
                     EndTime="To"
                     AppointmentBackground="Color"
+                    IsAllDay="IsAllDay"
+                    StartTimeZone="StartTimeZone"
+                    EndTimeZone="EndTimeZone"
+                    RecurrenceExceptionDates="RecurrenceExceptions"
+                    RecurrenceRule="RecurrenceRule"
+                    RecurrenceId="RecurrenceId"
                     Reminders="Reminders">
                     <syncfusion:AppointmentMapping.ReminderMapping>
                         <syncfusion:ReminderMapping IsDismissed="Dismissed"
