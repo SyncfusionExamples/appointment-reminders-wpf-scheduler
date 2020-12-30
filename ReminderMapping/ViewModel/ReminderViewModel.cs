@@ -9,7 +9,7 @@ using System.Windows.Media;
 
 namespace ReminderMapping
 {
-    public class ReminderViewModel : NotificationObject
+    public class ReminderViewModel
     {
         #region Constructor
 
@@ -18,7 +18,7 @@ namespace ReminderMapping
         /// </summary>
         public ReminderViewModel()
         {
-            this.Events = new ObservableCollection<SchedulerModel>();
+            this.Events = new ObservableCollection<Event>();
             this.CreateSchedulerAppointments();
             DisplayDate = DateTime.Now.Date.AddHours(9);
         }
@@ -30,7 +30,7 @@ namespace ReminderMapping
         /// <summary>
         /// Gets or sets event collection.
         /// </summary>
-        public ObservableCollection<SchedulerModel> Events { get; set; }
+        public ObservableCollection<Event> Events { get; set; } = new ObservableCollection<Event>();
 
         /// <summary>
         /// Gets or sets display date
@@ -46,45 +46,45 @@ namespace ReminderMapping
         /// </summary>
         private void CreateSchedulerAppointments()
         {
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now,
                 To = DateTime.Now.AddHours(1),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF339933")),
                 EventName = "Conference",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0)},
+                    new Reminder { TimeInterval = new TimeSpan(0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(-2).AddHours(10),
                 To = DateTime.Now.Date.AddDays(-2).AddHours(11),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFA2C139")),
                 EventName = "Business Meeting",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(2).AddHours(12),
                 To = DateTime.Now.Date.AddDays(2).AddHours(13),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FF00ABA9")),
                 EventName = "Medical check up",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(1, 0, 0, 0)},
-                    new ReminderModel { TimeInterval = new TimeSpan(2, 0, 0, 0)},
-                    new ReminderModel { TimeInterval = new TimeSpan(3, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(1, 0, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(2, 0, 0, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(3, 0, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(-10).AddHours(15),
                 To = DateTime.Now.Date.AddDays(-10).AddHours(16),
@@ -92,21 +92,21 @@ namespace ReminderMapping
                 EventName = "Project Status Discussion",
                 Notes = "provides an opportunity to share information across the whole team.",
                 RecurrenceRule = "FREQ=WEEKLY;BYDAY=WE;INTERVAL=1;COUNT=20",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 
-            this.Events.Add(new SchedulerModel()
+            this.Events.Add(new Event()
             {
                 From = DateTime.Now.Date.AddDays(3).AddHours(14),
                 To = DateTime.Now.Date.AddDays(3).AddHours(15),
                 Color = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFD80073")),
                 EventName = "GoToMeeting",
-                Reminders = new ObservableCollection<ReminderModel>
+                Reminders = new ObservableCollection<Reminder>
                 {
-                    new ReminderModel { TimeInterval = new TimeSpan(0, 15, 0)},
+                    new Reminder { TimeInterval = new TimeSpan(0, 15, 0)},
                 }
             });
 

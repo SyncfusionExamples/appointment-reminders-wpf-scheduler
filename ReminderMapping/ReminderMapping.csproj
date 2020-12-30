@@ -78,8 +78,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\ReminderModel.cs" />
-    <Compile Include="Model\SchedulerModel.cs" />
+    <Compile Include="Model\Reminder.cs" />
+    <Compile Include="Model\Event.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>

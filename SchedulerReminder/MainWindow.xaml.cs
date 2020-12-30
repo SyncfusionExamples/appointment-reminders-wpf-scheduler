@@ -24,17 +24,5 @@ namespace Scheduler_Reminder
         {
             InitializeComponent();
         }
-
-        private void Viewtypecombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            var selectedValue = this.viewtypecombobox.SelectedValue.ToString();
-
-            if (selectedValue == "TimelineDay" || selectedValue == "TimelineWeek" || selectedValue == "TimelineWorkWeek" || selectedValue == "TimelineMonth")
-            {
-                this.Schedule.DisplayDate = DateTime.Now.Date;
-            }
-            else
-                this.Schedule.DisplayDate = DateTime.Now.Date.AddHours(9);
-        }
     }
 }

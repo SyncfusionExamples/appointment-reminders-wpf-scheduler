@@ -33,8 +33,7 @@
             <ComboBox x:Name="viewtypecombobox" 
                       ItemsSource="{Binding Source={StaticResource schedulerviewtypes}}"
                       SelectedIndex="2" 
-                      Width="150" Height="24" 
-                      SelectionChanged="Viewtypecombobox_SelectionChanged"/>
+                      Width="150" Height="24" />
         </StackPanel>
     </Grid>
 </Window>

@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace Scheduler_Reminder
 {
-    public class ReminderViewModel : NotificationObject
+    public class ReminderViewModel 
     {
         #region Constructor
 
@@ -31,7 +31,7 @@ namespace Scheduler_Reminder
         /// <summary>
         /// Gets or sets event collection.
         /// </summary>
-        public ScheduleAppointmentCollection Events { get; set; }
+        public ScheduleAppointmentCollection Events { get; set; } = new ScheduleAppointmentCollection();
 
         /// <summary>
         /// Gets or sets display date

@@ -52,7 +52,6 @@
             <ComboBox x:Name="viewtypecombobox" 
                       ItemsSource="{Binding Source={StaticResource schedulerviewtypes}}"
                       SelectedIndex="2" 
-                      SelectionChanged="Viewtypecombobox_SelectionChanged"  
                       Width="150" Height="24"
                       VerticalAlignment="Center"/>
         </StackPanel>
